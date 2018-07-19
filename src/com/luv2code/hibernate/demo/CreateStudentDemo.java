@@ -18,7 +18,7 @@ public class CreateStudentDemo {
 		// Create session
 		Session session = factory.getCurrentSession();
 		
-		// Perform crud operations on the session
+		// Perform CRUD operations on the session
 		try {
 			Student student = new Student("David", "Stromner", "david@stromner.se");
 			
@@ -27,6 +27,7 @@ public class CreateStudentDemo {
 			session.beginTransaction();
 			System.out.println("Saving object");
 			session.save(student);
+			
 			System.out.println("Committing the transaction");
 			session.getTransaction().commit();
 		}

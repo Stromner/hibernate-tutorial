@@ -6,7 +6,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.luv2code.hibernate.demo.entity.Student;
 
-public class PrimaryKeyDemo {
+public class ReadStudentDemo {
 
 	public static void main(String[] args) {
 		// Create session factory
@@ -20,19 +20,22 @@ public class PrimaryKeyDemo {
 		
 		// Perform CRUD operations on the session
 		try {
-			Student student1 = new Student("A", "B", "A@B.com");
-			Student student2 = new Student("C", "D", "C@D.com");
-			Student student3 = new Student("E", "F", "E@F.com");
+			Student student = new Student("A", "Duck", "quack@hot-ducks.com");
+			System.out.println("Student ID before save:\t"+student.getId());
 			
 			// Save object
-			System.out.println("Starting transaction");
 			session.beginTransaction();
-			System.out.println("Saving object");
-			session.save(student1);
-			session.save(student2);
-			session.save(student3);
+			session.save(student);
+			System.out.println("Student ID after save:\t"+student.getId());
 			
-			System.out.println("Committing the transaction");
+			session.getTransaction().commit();
+			
+			// Retrieve student
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+			
+			Student testStudent = session.get(Student.class, student.getId());
+			System.out.println(testStudent.toString());
 			session.getTransaction().commit();
 		}
 		finally {
