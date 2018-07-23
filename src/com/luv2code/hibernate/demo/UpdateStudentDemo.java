@@ -39,7 +39,7 @@ public class UpdateStudentDemo {
 			
 			session
 				.createQuery("update Student set email='test@email.com'")
-				.executeUpdate();
+				.executeUpdate(); // No need to call commit for this
 		}
 		finally {
 			System.out.println("Closing transaction");
